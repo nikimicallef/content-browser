@@ -1,0 +1,149 @@
+openapi: "3.0.3"
+info:
+  title: Content Browser API
+  version: "1.0.0"
+
+paths:
+  /content:
+    get:
+      description: "List of all content available in the system"
+        # TODO: Filter by content type
+        # TODO: Paging
+      parameters:
+        - in: query
+          name: top
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "List of all content"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Content"
+        "500":
+          $ref: "#/components/schemas/Error"
+  /content/{id}/actions/like:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          example: 11841bdbe53e43bca404d7431afc72d1
+    post:
+      description: "Like a piece of content"
+      responses:
+        "200":
+          description: "Content has been liked and the updated resource is returned"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Content"
+        "400":
+          $ref: "#/components/schemas/Error"
+        "500":
+          $ref: "#/components/schemas/Error"
+  /content/{id}/actions/dislike:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          example: 11841bdbe53e43bca404d7431afc72d1
+    post:
+      description: "Dislike a piece of content"
+      responses:
+        "200":
+          description: "Content has been disliked and the updated resource is returned"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Content"
+        "400":
+          $ref: "#/components/schemas/Error"
+        "500":
+          $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Content:
+      type: object
+      description: "Represents a piece of content"
+      required:
+        - id
+        - mediaTyoe
+        - source
+        - title
+        - contentUrl
+        - previewUrl
+        - votes
+      properties:
+        id:
+          description: "Unique entity ID."
+          type: string
+          example: "11841bdbe53e43bca404d7431afc72d1"
+        mediaType:
+          description: "The type of content being delivered"
+          type: string
+          enum: [ "VIDEO", "IMAGE" ]
+        source:
+          description: "Descriptive information about the event or athlete"
+          type: string
+          example: "sneak_All HAnds_sample SI_5.jpg"
+        title:
+          description: "Descriptive title of the piece of contentUrl"
+          type: string
+          example: "sneak_All HAnds_sample SI_5.jpg"
+        contentUrl:
+          description: "Resource location to the actual content piece"
+          type: string
+          example: "https://cs.liiift.io/v1/RBCP/pd/1/E7/63/TZ/EW/25/11/FO-1E763TZEW2511.mp4/a:h/proxy_hd_720.mp4?ht=exp=1644451200+hmac=72b06326206b07a854164ed9f1bb016e"
+        previewUrl:
+          description: "Thumbnail or reference keyframe depending on mediaType"
+          type: string
+          example: "https://img.liiift.io/v1/RBCP/FO-1YQG7HD3S5N11.jpg/a:h/im/reference_keyframe.jpg?ht=exp=1644451200+hmac=6538555f8575c6d328fcd71e8067421f"
+        votes:
+          description: "The total amount of votes on this content"
+          type: integer
+          format: int32
+          example: 123
+        description:
+          description: "(video only) The description of the content"
+          type: string
+          example: "More than 100 000 people gathered on the bank of Mosva-river on August 7th to watch 39 extravagant teams, performing on 6 meter ramp before the flight on their self-made flying machines."
+        length:
+          description: "(video only) Length of the video"
+          type: integer
+          format: int64
+          example: 534
+        aspectRatio:
+          description: "(video only) Video aspect ration"
+          type: string
+          example: "16:9"
+        topic:
+          description: "(video only) Video topic"
+          type: string
+          example: "Flugtag"
+
+    Error:
+      type: object
+      description: "Represents an error/problem encountered by the server."
+      required:
+        - message
+        - validationErrors
+      properties:
+        message:
+          description: "A description of the error encountered by the server"
+          type: string
+          example: "The entity specified has not been found"
+        validationErrors:
+          description: "A list of one or more validation errors due to possible incorrect data within the request"
+          type: array
+          items:
+            type: string
+            example: "The id field should not be specified within this request"

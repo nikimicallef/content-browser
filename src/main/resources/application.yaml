@@ -1,1 +1,7 @@
-
+spring:
+  data:
+    mongodb:
+      database: rbmh-content
+mongock:
+  change-logs-scan-package:
+    - com.rbmh.contentbrowser.repositories.migrations

@@ -7,6 +7,7 @@ import com.rbmh.contentbrowser.repositories.models.MediaTypeDbEnum;
 
 
 public class ContentModelMapper {
+
     public static Content mapFromDbModelToApiModel(final ContentDbModel dbModel) {
         final Content content = new Content();
         content.setId(dbModel.getId());
@@ -15,7 +16,7 @@ public class ContentModelMapper {
         content.setTitle(dbModel.getTitle());
         content.setContentUrl(dbModel.getContentUrl());
         content.setPreviewUrl(dbModel.getPreviewUrl());
-        content.setVotes(dbModel.getUpvotes() - dbModel.getDownvotes());
+        content.setVotes(dbModel.getVotes());
         content.setDescription(dbModel.getDescription());
         content.setLength(dbModel.getLengthSeconds());
         content.setAspectRatio(dbModel.getAspectRatio());

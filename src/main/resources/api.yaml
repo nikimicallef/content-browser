@@ -8,10 +8,24 @@ paths:
     get:
       description: "List of all content available in the system"
         # TODO: Filter by content type
-        # TODO: Paging
       parameters:
         - in: query
-          name: top
+          name: orderByVotesDesc
+          description: "Retrieves the entities ordered by votes in descending order."
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: page
+          description: "Determines what page to return in the response"
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - in: query
+          name: pageSize
+          description: "Determines each page size"
           required: false
           schema:
             type: integer

@@ -43,7 +43,6 @@ public class V001BoardInitialData {
                         content.contentUrl,
                         content.previewUrl,
                         0,
-                        0,
                         content.description,
                         content.getLength() == null ? null : lengthStringToSeconds(content.getLength()),
                         content.getAspectRatio(),

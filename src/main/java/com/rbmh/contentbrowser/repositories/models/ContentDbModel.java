@@ -2,11 +2,14 @@ package com.rbmh.contentbrowser.repositories.models;
 
 import java.util.Objects;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Document("content")
 public class ContentDbModel {
+
+    @Id
     private String id;
     private String externalId;
     private MediaTypeDbEnum mediaType;
@@ -14,8 +17,7 @@ public class ContentDbModel {
     private String title;
     private String contentUrl;
     private String previewUrl;
-    private Integer upvotes;
-    private Integer downvotes;
+    private Integer votes;
     private String description;
     private Long lengthSeconds;
     private String aspectRatio;
@@ -24,7 +26,7 @@ public class ContentDbModel {
     public ContentDbModel() {
     }
 
-    public ContentDbModel(String id, String externalId, MediaTypeDbEnum mediaType, String source, String title, String contentUrl, String previewUrl, Integer upvotes, Integer downvotes, String description, Long lengthSeconds, String aspectRatio, String topic) {
+    public ContentDbModel(String id, String externalId, MediaTypeDbEnum mediaType, String source, String title, String contentUrl, String previewUrl, Integer votes, String description, Long lengthSeconds, String aspectRatio, String topic) {
         this.id = id;
         this.externalId = externalId;
         this.mediaType = mediaType;
@@ -32,8 +34,7 @@ public class ContentDbModel {
         this.title = title;
         this.contentUrl = contentUrl;
         this.previewUrl = previewUrl;
-        this.upvotes = upvotes;
-        this.downvotes = downvotes;
+        this.votes = votes;
         this.description = description;
         this.lengthSeconds = lengthSeconds;
         this.aspectRatio = aspectRatio;
@@ -96,20 +97,12 @@ public class ContentDbModel {
         this.previewUrl = previewUrl;
     }
 
-    public Integer getUpvotes() {
-        return upvotes;
+    public Integer getVotes() {
+        return votes;
     }
 
-    public void setUpvotes(Integer upvotes) {
-        this.upvotes = upvotes;
-    }
-
-    public Integer getDownvotes() {
-        return downvotes;
-    }
-
-    public void setDownvotes(Integer downvotes) {
-        this.downvotes = downvotes;
+    public void setVotes(Integer votes) {
+        this.votes = votes;
     }
 
     public String getDescription() {
@@ -153,8 +146,7 @@ public class ContentDbModel {
                 ", title='" + title + '\'' +
                 ", contentUrl='" + contentUrl + '\'' +
                 ", previewUrl='" + previewUrl + '\'' +
-                ", upvotes=" + upvotes +
-                ", downvotes=" + downvotes +
+                ", upvotes=" + votes +
                 ", description='" + description + '\'' +
                 ", lengthSeconds=" + lengthSeconds +
                 ", aspectRatio='" + aspectRatio + '\'' +
@@ -168,10 +160,10 @@ public class ContentDbModel {
         if (o == null || getClass() != o.getClass())
             return false;
         ContentDbModel that = (ContentDbModel) o;
-        return Objects.equals(id, that.id) && Objects.equals(externalId, that.externalId) && mediaType == that.mediaType && Objects.equals(source, that.source) && Objects.equals(title, that.title) && Objects.equals(contentUrl, that.contentUrl) && Objects.equals(previewUrl, that.previewUrl) && Objects.equals(upvotes, that.upvotes) && Objects.equals(downvotes, that.downvotes) && Objects.equals(description, that.description) && Objects.equals(lengthSeconds, that.lengthSeconds) && Objects.equals(aspectRatio, that.aspectRatio) && Objects.equals(topic, that.topic);
+        return Objects.equals(id, that.id) && Objects.equals(externalId, that.externalId) && mediaType == that.mediaType && Objects.equals(source, that.source) && Objects.equals(title, that.title) && Objects.equals(contentUrl, that.contentUrl) && Objects.equals(previewUrl, that.previewUrl) && Objects.equals(votes, that.votes) && Objects.equals(description, that.description) && Objects.equals(lengthSeconds, that.lengthSeconds) && Objects.equals(aspectRatio, that.aspectRatio) && Objects.equals(topic, that.topic);
     }
 
     @Override public int hashCode() {
-        return Objects.hash(id, externalId, mediaType, source, title, contentUrl, previewUrl, upvotes, downvotes, description, lengthSeconds, aspectRatio, topic);
+        return Objects.hash(id, externalId, mediaType, source, title, contentUrl, previewUrl, votes, description, lengthSeconds, aspectRatio, topic);
     }
 }

@@ -26,13 +26,11 @@ public class ContentRestController
         return ResponseEntity.ok(service.getContent(orderByVotesDesc, page, pageSize));
     }
 
-    @Override
-    public ResponseEntity<Content> contentIdActionsDislikePost(final String id) {
+    @Override public ResponseEntity<Content> contentIdActionsDownvotePost(String id) {
         return ResponseEntity.ok(service.voteContent(id, false));
     }
 
-    @Override
-    public ResponseEntity<Content> contentIdActionsLikePost(final String id) {
+    @Override public ResponseEntity<Content> contentIdActionsUpvotePost(String id) {
         return ResponseEntity.ok(service.voteContent(id, true));
     }
 }

@@ -40,7 +40,7 @@ paths:
                   $ref: "#/components/schemas/Content"
         "500":
           $ref: "#/components/schemas/Error"
-  /content/{id}/actions/like:
+  /content/{id}/actions/upvote:
     parameters:
       - in: path
         name: id
@@ -49,10 +49,10 @@ paths:
           type: string
           example: 11841bdbe53e43bca404d7431afc72d1
     post:
-      description: "Like a piece of content"
+      description: "Upvote a piece of content"
       responses:
         "200":
-          description: "Content has been liked and the updated resource is returned"
+          description: "Content has been upvoted and the updated resource is returned"
           content:
             application/json:
               schema:
@@ -61,7 +61,7 @@ paths:
           $ref: "#/components/schemas/Error"
         "500":
           $ref: "#/components/schemas/Error"
-  /content/{id}/actions/dislike:
+  /content/{id}/actions/downvote:
     parameters:
       - in: path
         name: id
@@ -70,10 +70,10 @@ paths:
           type: string
           example: 11841bdbe53e43bca404d7431afc72d1
     post:
-      description: "Dislike a piece of content"
+      description: "Downvotes a piece of content"
       responses:
         "200":
-          description: "Content has been disliked and the updated resource is returned"
+          description: "Content has been downvoted and the updated resource is returned"
           content:
             application/json:
               schema:

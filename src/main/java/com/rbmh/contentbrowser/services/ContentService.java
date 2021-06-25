@@ -55,15 +55,15 @@ public class ContentService {
         return retrievedData.stream().map(ContentModelMapper::mapFromDbModelToApiModel).collect(Collectors.toList());
     }
 
-    public synchronized Content voteContent(final String contentId, final boolean like) {
+    public synchronized Content voteContent(final String contentId, final boolean upvote) {
         final ContentDbModel content = contentRepository.findById(contentId).orElseThrow(() -> new EntityNotFoundException("Content with ID " + contentId + " not found."));
 
-        if (like) {
+        if (upvote) {
             content.setVotes(content.getVotes() + 1);
-            votesRepository.save(new VoteDbModel(null, VoteTypeDbEnum.LIKE, contentId, Instant.now()));
+            votesRepository.save(new VoteDbModel(null, VoteTypeDbEnum.UPVOTE, contentId, Instant.now()));
         } else {
             content.setVotes(content.getVotes() - 1);
-            votesRepository.save(new VoteDbModel(null, VoteTypeDbEnum.DISLIKE, contentId, Instant.now()));
+            votesRepository.save(new VoteDbModel(null, VoteTypeDbEnum.DOWNVOTE, contentId, Instant.now()));
         }
 
         return ContentModelMapper.mapFromDbModelToApiModel(contentRepository.save(content));

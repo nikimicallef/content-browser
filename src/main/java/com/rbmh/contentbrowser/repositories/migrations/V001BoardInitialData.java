@@ -24,12 +24,16 @@ public class V001BoardInitialData {
     @ChangeSet(order = "001", id = "boardInitialData", author = "niki")
     public void boardInitialData(ContentRepository repository)
             throws IOException {
+        // Reads data from file
         final File file = ResourceUtils.getFile("classpath:content.json");
 
         final String fileContents = new String(Files.readAllBytes(file.toPath()));
+        // Removed all HTML elements and any tabs
         final String cleanedText = Jsoup.parse(fileContents).text().replace("\\t", "");
 
         final ObjectMapper objectMapper = new ObjectMapper();
+
+        // Converts to object
         final List<JsonContent> contentModels = objectMapper.readValue(cleanedText, new TypeReference<>() {
 
         });
@@ -49,6 +53,7 @@ public class V001BoardInitialData {
                         content.getTopic())
         ).collect(Collectors.toList());
 
+        // Saves all entities within the DB
         repository.saveAll(dbEntities);
     }
 

@@ -1,4 +1,4 @@
-package com.rbmh.contentbrowser.mapper;
+package com.rbmh.contentbrowser.mappers;
 
 import org.openapitools.model.Content;
 
@@ -8,6 +8,12 @@ import com.rbmh.contentbrowser.repositories.models.MediaTypeDbEnum;
 
 public class ContentModelMapper {
 
+    /**
+     * Maps an {@link ContentDbModel} to a {@link Content}
+     *
+     * @param dbModel to map
+     * @return mapped object
+     */
     public static Content mapFromDbModelToApiModel(final ContentDbModel dbModel) {
         final Content content = new Content();
         content.setId(dbModel.getId());
@@ -25,6 +31,12 @@ public class ContentModelMapper {
         return content;
     }
 
+    /**
+     * Maps a {@link MediaTypeDbEnum} to a {@link Content.MediaTypeEnum}
+     *
+     * @param dbEnum to map
+     * @return mapped result
+     */
     public static Content.MediaTypeEnum mapMediaTypeDbModelToApiModel(final MediaTypeDbEnum dbEnum) {
         switch (dbEnum) {
 

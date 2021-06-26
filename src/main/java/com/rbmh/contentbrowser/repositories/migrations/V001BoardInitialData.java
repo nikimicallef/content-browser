@@ -1,13 +1,13 @@
 package com.rbmh.contentbrowser.repositories.migrations;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
-import org.springframework.util.ResourceUtils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,12 +24,16 @@ public class V001BoardInitialData {
     @ChangeSet(order = "001", id = "boardInitialData", author = "niki")
     public void boardInitialData(ContentRepository repository)
             throws IOException {
-        // Reads data from file
-        final File file = ResourceUtils.getFile("classpath:content.json");
+        final InputStream inputStream = V001BoardInitialData.class.getResourceAsStream("/content.json");
+        final BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+        final StringBuilder responseStrBuilder = new StringBuilder();
+        String inputStr;
+        while ((inputStr = br.readLine()) != null) {
+            responseStrBuilder.append(inputStr);
+        }
 
-        final String fileContents = new String(Files.readAllBytes(file.toPath()));
         // Removed all HTML elements and any tabs
-        final String cleanedText = Jsoup.parse(fileContents).text().replace("\\t", "");
+        final String cleanedText = Jsoup.parse(responseStrBuilder.toString()).text().replace("\\t", "");
 
         final ObjectMapper objectMapper = new ObjectMapper();
 

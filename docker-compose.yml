@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+    my_mongodb:
+        image: "mongo:4.4.6"
+        restart: always
+        ports:
+            - 27017:27017
+    content-browser:
+        build: .
+        restart: always
+        ports:
+            - 8080:8080
+        depends_on:
+            - my_mongodb

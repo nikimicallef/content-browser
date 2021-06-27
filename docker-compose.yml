@@ -2,9 +2,11 @@ version: "3.9"
 services:
     my_mongodb:
         image: "mongo:4.4.6"
-        restart: always
+        restart: unless-stopped
         ports:
-            - 27017:27017
+            - 27017-27019:27017-27019
+        volumes:
+            - cb-mongo:/data/db
     content-browser:
         build: .
         restart: always
@@ -12,3 +14,5 @@ services:
             - 8080:8080
         depends_on:
             - my_mongodb
+volumes:
+    cb-mongo:

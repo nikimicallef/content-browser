@@ -6,11 +6,13 @@ import org.openapitools.api.ContentApiController;
 import org.openapitools.model.Content;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import com.rbmh.contentbrowser.services.ContentService;
 
 
+@CrossOrigin
 @Component
 public class ContentRestController
         extends ContentApiController {
